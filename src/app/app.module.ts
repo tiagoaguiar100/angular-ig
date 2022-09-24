@@ -7,12 +7,17 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { EmployeeGridComponent } from './employee-grid/employee-grid.component';
+import { ContextMenuDirective } from './context-menu/context-menu.directive';
+import { OverlayModule } from '@angular/cdk/overlay';
+import { ContextMenuComponent } from './context-menu/context-menu.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    EmployeeGridComponent
+    EmployeeGridComponent,
+    ContextMenuDirective,
+    ContextMenuComponent
   ],
   imports: [
     FormsModule,
@@ -24,7 +29,8 @@ import { EmployeeGridComponent } from './employee-grid/employee-grid.component';
     IgxNavbarModule,
     IgxNavigationDrawerModule,
     IgxRippleModule,
-    IgxGridModule
+    IgxGridModule,
+    OverlayModule
   ],
   providers: [],
   bootstrap: [AppComponent]
