@@ -1,4 +1,5 @@
 <div class="example-menu">
-  <button class="example-menu-item">Update row from clipboard</button>
-  <button class="example-menu-item">Insert new row from clipboard</button>
+  <ng-container *ngFor="let action of actions">
+    <button class="example-menu-item" (click)="action.callback(grid,row)">{{action.label}}</button>
+  </ng-container>
 </div>

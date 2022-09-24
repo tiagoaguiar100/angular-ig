@@ -1,9 +1,11 @@
 <p>igx-grid component without auto generated columns below and local data.</p>
-<igx-grid #grid1 [data]="localData" [autoGenerate]="false" (columnInit)="onColumnInit($event)" width="960px" height="550px">
-  <igx-column field="FirstName" [sortable]="true" header="FirstName" >
+<igx-grid #employeeGrid [data]="localData" [autoGenerate]="false" (columnInit)="onColumnInit($event)" width="960px" height="550px" [rowEditable]="true">
+  <igx-column field="EmployeeID" [sortable]="true" header="Employee ID" >
     <ng-template igxCell let-value>
-      <div class="container" [contextMenu]="menu">{{ value | lowercase }} </div>
+      <div [contextMenu]="menu" [id]="value">{{ value }} </div>
     </ng-template>
+  </igx-column>
+  <igx-column field="FirstName" [sortable]="true" header="FirstName" >
   </igx-column>
   <igx-column field="LastName" [sortable]="true" header="LastName"></igx-column>
   <igx-column field="Country" [sortable]="true" header="Country"></igx-column>
@@ -13,6 +15,6 @@
 </igx-grid>
 
 
-<ng-template #menu>
-  <app-context-menu></app-context-menu>
+<ng-template #menu let-id>
+  <app-context-menu [grid]="employeeGrid" [row]="id" [actions]="actions"></app-context-menu>
 </ng-template>

@@ -8,7 +8,7 @@ import { TemplatePortal } from '@angular/cdk/portal';
 })
 export class ContextMenuDirective {
   @Input() contextMenu: TemplateRef<any>;
-  @Input() context: any;
+  @Input() id: any;
 
   public _overlayRef: OverlayRef | null;
 
@@ -37,7 +37,9 @@ export class ContextMenuDirective {
 
     this._overlayRef = this.overlay.create(config);
  
-    this._overlayRef.attach(new TemplatePortal(this.contextMenu, this.viewContainerRef));
+    this._overlayRef.attach(new TemplatePortal(this.contextMenu, this.viewContainerRef, {
+      $implicit: this.id
+    }));
    }
 
    public close(): void {
