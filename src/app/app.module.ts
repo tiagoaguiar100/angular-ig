@@ -2,15 +2,17 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule, HammerModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { IgxLayoutModule, IgxNavbarModule, IgxNavigationDrawerModule, IgxRippleModule } from 'igniteui-angular';
+import { IgxLayoutModule, IgxNavbarModule, IgxNavigationDrawerModule, IgxRippleModule, IgxGridModule } from 'igniteui-angular';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
+import { ExampleGridComponent } from './example-grid/example-grid.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    ExampleGridComponent
   ],
   imports: [
     FormsModule,
@@ -21,9 +23,11 @@ import { HomeComponent } from './home/home.component';
     IgxLayoutModule,
     IgxNavbarModule,
     IgxNavigationDrawerModule,
-    IgxRippleModule
+    IgxRippleModule,
+    IgxGridModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
