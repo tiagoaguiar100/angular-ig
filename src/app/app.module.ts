@@ -6,13 +6,13 @@ import { IgxLayoutModule, IgxNavbarModule, IgxNavigationDrawerModule, IgxRippleM
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
-import { ExampleGridComponent } from './example-grid/example-grid.component';
+import { EmployeeGridComponent } from './employee-grid/employee-grid.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    ExampleGridComponent
+    EmployeeGridComponent
   ],
   imports: [
     FormsModule,

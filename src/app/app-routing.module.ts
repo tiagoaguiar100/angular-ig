@@ -5,13 +5,13 @@ import { HomeComponent } from './home/home.component';
 import { PageNotFoundComponent } from './error-routing/not-found/not-found.component';
 import { UncaughtErrorComponent } from './error-routing/error/uncaught-error.component';
 import { ErrorRoutingModule } from './error-routing/error-routing.module';
-import { ExampleGridComponent } from './example-grid/example-grid.component';
+import { EmployeeGridComponent } from './employee-grid/employee-grid.component';
 
 export const routes: Routes = [
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: '', redirectTo: '/employee-grid', pathMatch: 'full' },
   { path: 'home', component: HomeComponent, data: { text: 'Home' } },
   { path: 'error', component: UncaughtErrorComponent },
-  { path: 'example-grid', component: ExampleGridComponent, data: { text: 'example-grid' } },
+  { path: 'employee-grid', component: EmployeeGridComponent, data: { text: 'Employee Grid' } },
   { path: '**', component: PageNotFoundComponent } // must always be last
 ];
 

@@ -3,13 +3,13 @@ import { IgxColumnComponent } from 'igniteui-angular';
 import { Employee, employeesData } from './localData';
 
 @Component({
-  selector: 'app-example-grid',
-  templateUrl: './example-grid.component.html',
-  styleUrls: ['./example-grid.component.scss']
+  selector: 'app-employee-grid',
+  templateUrl: './employee-grid.component.html',
+  styleUrls: ['./employee-grid.component.scss']
 })
-export class ExampleGridComponent implements OnInit {
+export class EmployeeGridComponent implements OnInit {
   public localData: Employee[] = [];
-  title = 'example-grid';
+  title = 'employee-grid';
 
   ngOnInit(): void {
     this.localData = employeesData;

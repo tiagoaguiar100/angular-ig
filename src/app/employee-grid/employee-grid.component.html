@@ -1,0 +1,9 @@
+<p>igx-grid component without auto generated columns below and local data.</p>
+<igx-grid #grid1 [data]="localData" [autoGenerate]="false" (columnInit)="onColumnInit($event)" width="960px" height="550px">
+  <igx-column field="FirstName" [sortable]="true" header="FirstName"></igx-column>
+  <igx-column field="LastName" [sortable]="true" header="LastName"></igx-column>
+  <igx-column field="Country" [sortable]="true" header="Country"></igx-column>
+  <igx-column field="Age" [sortable]="true" header="Age"></igx-column>
+  <igx-column field="RegistererDate" [sortable]="true" header="RegistererDate"></igx-column>
+  <igx-paginator></igx-paginator>
+</igx-grid>
