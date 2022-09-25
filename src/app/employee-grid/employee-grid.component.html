@@ -1,8 +1,10 @@
 <h3>Employee Grid</h3>
 <h4>Use these examples as clipboard:</h4>
 <pre>{{"{\"FirstName\": \"John\", \"LastName\": \"Doe\", \"Country\": \"USA\", \"Age\": \"36\"}"}}</pre>
+<pre>{{"{\"FirstName\": \"Jane\", \"LastName\": \"Doe\", \"Country\": \"AU\", \"Age\": \"35\"}"}}</pre>
 <pre>{{"{\"FirstName\": \"anotherFirstName\"}"}}</pre>
 <pre>{{"{\"LastName\": \"anotherLastName\"}"}}</pre>
+<pre>{{"{\"Age\": \"100\"}"}}</pre>
 
 <igx-grid #employeeGrid [data]="localData" [autoGenerate]="false" width="960px" height="550px">
   <ng-container  *ngFor="let column of columns">
@@ -17,6 +19,6 @@
 
 <label class="error" *ngIf="error">{{ error }}</label>
 
-<ng-template #menu let-id>
-  <app-context-menu [grid]="employeeGrid" [row]="id" [actions]="actions"></app-context-menu>
+<ng-template #menu let-row>
+  <app-context-menu [grid]="employeeGrid" [row]="row" [actions]="actions"></app-context-menu>
 </ng-template>

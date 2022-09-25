@@ -105,7 +105,9 @@ export class EmployeeGridComponent implements OnInit {
             if(!employee.EmployeeID) {
               employee.EmployeeID = new ObjectID().toString();
             }
-            employee.RegistererDate = new Date();
+            if(!employee.RegistererDate) {
+              employee.RegistererDate = new Date();
+            }
             this.localData.unshift(employee);
             grid.markForCheck();
           } catch (e){
