@@ -8,10 +8,11 @@ import { ErrorRoutingModule } from './error-routing/error-routing.module';
 import { EmployeeGridComponent } from './employee-grid/employee-grid.component';
 
 export const routes: Routes = [
-  { path: '', redirectTo: '/employee-grid', pathMatch: 'full' },
-  { path: 'home', component: HomeComponent, data: { text: 'Home' } },
-  { path: 'error', component: UncaughtErrorComponent },
-  { path: 'employee-grid', component: EmployeeGridComponent, data: { text: 'Employee Grid' } },
+  { path: '', component: EmployeeGridComponent, data: { text: 'Employee Grid' } },
+  // Comment to work on github pages
+  // { path: 'home', component: HomeComponent, data: { text: 'Home' } },
+  // { path: 'error', component: UncaughtErrorComponent },
+  // { path: 'employee-grid', component: EmployeeGridComponent, data: { text: 'Employee Grid' } },
   { path: '**', component: PageNotFoundComponent } // must always be last
 ];
 
