@@ -3,6 +3,7 @@ import { IgxGridRow } from 'igniteui-angular';
 
 import { Overlay, OverlayRef, OverlayConfig } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
+import { ContextMenuService } from './context-menu.service';
 
 @Directive({
   selector: '[contextMenu]',
@@ -15,7 +16,8 @@ export class ContextMenuDirective {
 
   constructor(
     private overlay: Overlay,
-    private viewContainerRef: ViewContainerRef
+    private viewContainerRef: ViewContainerRef,
+    private contextMenuService: ContextMenuService
   ) {}
 
   /**
@@ -44,6 +46,7 @@ export class ContextMenuDirective {
 
     this._overlayRef.backdropClick().subscribe(() => this._overlayRef?.dispose());
 
+    this.contextMenuService.setContextMenu(this._overlayRef);
    }
 
    /**

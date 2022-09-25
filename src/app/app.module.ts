@@ -10,6 +10,7 @@ import { EmployeeGridComponent } from './employee-grid/employee-grid.component';
 import { ContextMenuDirective } from './context-menu/context-menu.directive';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { ContextMenuComponent } from './context-menu/context-menu.component';
+import { ContextMenuService } from './context-menu/context-menu.service';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,7 @@ import { ContextMenuComponent } from './context-menu/context-menu.component';
     IgxGridModule,
     OverlayModule
   ],
-  providers: [],
+  providers: [ContextMenuService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

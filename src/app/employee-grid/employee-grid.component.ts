@@ -1,9 +1,9 @@
-import { Component, OnInit, ViewChildren } from '@angular/core';
-import { IgxColumnComponent, IgxGridComponent, IgxGridRow } from 'igniteui-angular';
+import { Component, OnInit } from '@angular/core';
+import { IgxGridComponent, IgxGridRow } from 'igniteui-angular';
 import { Employee, employeesData } from './localData';
-import { ContextMenuDirective } from '../context-menu/context-menu.directive';
 import {ObjectID} from 'bson';
 import { Action } from '../context-menu/context-menu.component';
+import { ContextMenuService } from '../context-menu/context-menu.service';
 
 export interface Column {
   field: string;
@@ -53,9 +53,7 @@ export class EmployeeGridComponent implements OnInit {
     },
   ]
 
-  @ViewChildren(ContextMenuDirective) contextMenuDirective: ContextMenuDirective[];
-
-  constructor() {}
+  constructor(private readonly contextMenuService: ContextMenuService) {}
 
   public ngOnInit(): void {
     this.localData = employeesData;
@@ -66,8 +64,8 @@ export class EmployeeGridComponent implements OnInit {
    * @param row
    */
   private updateCallback(grid: IgxGridComponent, row: IgxGridRow): void {
-    this.error = '';
     let employee: Partial<Employee>;
+    this.error = '';
     navigator.clipboard
       .readText()
       .then(
@@ -79,11 +77,10 @@ export class EmployeeGridComponent implements OnInit {
           } catch (e){
             this.error = `${this.errorMessage} <<${e}>>`;
           } finally {
-            this.close();
+            this.contextMenuService.close();
           }
         },
       );
-
   }
 
   /**
@@ -91,8 +88,8 @@ export class EmployeeGridComponent implements OnInit {
    * @param grid
    */
   private insertCallback(grid: IgxGridComponent): void {
-    this.error = '';
     let employee: Employee;
+    this.error = '';
     navigator.clipboard
       .readText()
       .then(
@@ -108,17 +105,9 @@ export class EmployeeGridComponent implements OnInit {
           } catch (e){
             this.error = `${this.errorMessage} <<${e}>>`;
           } finally {
-            this.close();
+            this.contextMenuService.close();
           }
         }
       );
-  }
-
-  /**
-   * Close context menu
-   */
-  private close(){
-   let contextMenu = this.contextMenuDirective.find(element => element._overlayRef);
-   contextMenu?.close();
   }
 }
