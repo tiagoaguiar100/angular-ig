@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewChildren } from '@angular/core';
 import { IgxColumnComponent, IgxGridComponent } from 'igniteui-angular';
 import { Employee, employeesData } from './localData';
+import { ContextMenuDirective } from '../context-menu/context-menu.directive';
 
 @Component({
   selector: 'app-employee-grid',
@@ -10,6 +11,7 @@ import { Employee, employeesData } from './localData';
 export class EmployeeGridComponent implements OnInit {
   public localData: Employee[] = [];
   public error = '';
+  private errorMessage = 'Format Error: Please use the same format as the examples.';
 
   public actions = [
     {
@@ -21,6 +23,10 @@ export class EmployeeGridComponent implements OnInit {
       callback: (grid: IgxGridComponent, _: string) => this.insertCallback(grid)
     },
   ]
+
+  @ViewChildren(ContextMenuDirective) contextMenuDirective: ContextMenuDirective[];
+
+  constructor() {}
 
   public ngOnInit(): void {
     this.localData = employeesData;
@@ -47,7 +53,9 @@ export class EmployeeGridComponent implements OnInit {
             employee = JSON.parse(clipText);
             this.localData = this.localData.map(element => element.EmployeeID === row ? { ...element, ...employee} : element);
           } catch (e){
-            this.error = `Format Error: Please use the same format as the examples. \n <<${e}>>`;
+            this.error = `${this.errorMessage} <<${e}>>`;
+          } finally {
+            this.close();
           }
         },
       );
@@ -68,10 +76,20 @@ export class EmployeeGridComponent implements OnInit {
             employee = JSON.parse(clipText);
             this.localData.unshift(employee);
           } catch (e){
-            this.error = `Format Error: Please use the same format as the examples. \n <<${e}>>`;
+            this.error = `${this.errorMessage} <<${e}>>`;
+          } finally {
+            this.close();
           }
         }
       );
-      grid.markForCheck();
+    grid.markForCheck();
+  }
+
+  /**
+   * Close context menu
+   */
+  private close(){
+   let contextMenu = this.contextMenuDirective.find(element => element._overlayRef);
+   contextMenu?.close();
   }
 }

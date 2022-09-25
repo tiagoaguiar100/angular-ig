@@ -17,7 +17,6 @@ export class ContextMenuDirective {
     private viewContainerRef: ViewContainerRef
   ) {}
 
-
   /**
    * Listener for the 'contextmenu' event.
    * @param event
@@ -37,7 +36,7 @@ export class ContextMenuDirective {
     }]);
 
     this._overlayRef = this.overlay.create(config);
- 
+
     this._overlayRef.attach(new TemplatePortal(this.contextMenu, this.viewContainerRef, {
       $implicit: this.id
     }));
@@ -45,4 +44,12 @@ export class ContextMenuDirective {
     this._overlayRef.backdropClick().subscribe(() => this._overlayRef?.dispose());
 
    }
+
+   /**
+    * Close context menu
+    */
+  public close(): void {
+    this._overlayRef?.dispose();
+    this._overlayRef = null;
+  }
 }
