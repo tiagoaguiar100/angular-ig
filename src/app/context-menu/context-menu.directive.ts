@@ -1,4 +1,5 @@
 import { Directive, HostListener, Input, TemplateRef, ViewContainerRef } from '@angular/core';
+import { IgxGridRow } from 'igniteui-angular';
 
 import { Overlay, OverlayRef, OverlayConfig } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
@@ -8,7 +9,7 @@ import { TemplatePortal } from '@angular/cdk/portal';
 })
 export class ContextMenuDirective {
   @Input() contextMenu: TemplateRef<any>;
-  @Input() id: any;
+  @Input() row: IgxGridRow;
 
   public _overlayRef: OverlayRef | null;
 
@@ -38,7 +39,7 @@ export class ContextMenuDirective {
     this._overlayRef = this.overlay.create(config);
 
     this._overlayRef.attach(new TemplatePortal(this.contextMenu, this.viewContainerRef, {
-      $implicit: this.id
+      $implicit: this.row
     }));
 
     this._overlayRef.backdropClick().subscribe(() => this._overlayRef?.dispose());

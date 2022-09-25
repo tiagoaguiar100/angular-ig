@@ -1,7 +1,15 @@
-import { Component, OnInit, ViewChild, ViewChildren } from '@angular/core';
-import { IgxColumnComponent, IgxGridComponent } from 'igniteui-angular';
+import { Component, OnInit, ViewChildren } from '@angular/core';
+import { IgxColumnComponent, IgxGridComponent, IgxGridRow } from 'igniteui-angular';
 import { Employee, employeesData } from './localData';
 import { ContextMenuDirective } from '../context-menu/context-menu.directive';
+import {ObjectID} from 'bson';
+import { Action } from '../context-menu/context-menu.component';
+
+export interface Column {
+  field: string;
+  header: string;
+  value?: (value: any) => void;
+}
 
 @Component({
   selector: 'app-employee-grid',
@@ -13,14 +21,35 @@ export class EmployeeGridComponent implements OnInit {
   public error = '';
   private errorMessage = 'Format Error: Please use the same format as the examples.';
 
-  public actions = [
+  public actions: Action[] = [
     {
       label: 'Update row from clipboard',
-      callback: (_: IgxGridComponent, row: string) => this.updateCallback(row)
+      callback: (grid: IgxGridComponent, row: IgxGridRow) => this.updateCallback(grid, row)
     },
     {
       label: 'Insert new row from clipboard',
-      callback: (grid: IgxGridComponent, _: string) => this.insertCallback(grid)
+      callback: (grid: IgxGridComponent, _: IgxGridRow) => this.insertCallback(grid)
+    },
+  ];
+
+  public columns = [
+    {
+      field: 'FirstName',
+      header: 'First Name'
+    },
+    {
+      field: 'LastName',
+      header: 'Last Name'
+    },    {
+      field: 'Country',
+      header: 'Country'
+    },    {
+      field: 'Age',
+      header: 'Age'
+    },    {
+      field: 'RegistererDate',
+      header: 'Registerer Date',
+      value: (value: any) => value?.toLocaleDateString()
     },
   ]
 
@@ -32,17 +61,11 @@ export class EmployeeGridComponent implements OnInit {
     this.localData = employeesData;
   }
 
-  public onColumnInit(column: IgxColumnComponent): void {
-    if (column.field === 'RegistererDate') {
-      column.formatter = (date => date?.toLocaleDateString());
-    }
-  }
-
   /**
    * Callback for update a row in grid from clipboard
    * @param row
    */
-  private updateCallback(row: string): void {
+  private updateCallback(grid: IgxGridComponent, row: IgxGridRow): void {
     this.error = '';
     let employee: Partial<Employee>;
     navigator.clipboard
@@ -51,7 +74,8 @@ export class EmployeeGridComponent implements OnInit {
         (clipText) => {
           try {
             employee = JSON.parse(clipText);
-            this.localData = this.localData.map(element => element.EmployeeID === row ? { ...element, ...employee} : element);
+            this.localData[row.index] = { ...this.localData[row.index], ...employee};
+            grid.markForCheck();
           } catch (e){
             this.error = `${this.errorMessage} <<${e}>>`;
           } finally {
@@ -59,22 +83,28 @@ export class EmployeeGridComponent implements OnInit {
           }
         },
       );
+
   }
 
   /**
    * Callback for insert a new row in grid from clipboard
    * @param grid
    */
-  private async insertCallback(grid: IgxGridComponent): Promise<void> {
+  private insertCallback(grid: IgxGridComponent): void {
     this.error = '';
     let employee: Employee;
-    await navigator.clipboard
+    navigator.clipboard
       .readText()
       .then(
         (clipText) => {
           try {
             employee = JSON.parse(clipText);
+            if(!employee.EmployeeID) {
+              employee.EmployeeID = new ObjectID().toString();
+            }
+            employee.RegistererDate = new Date();
             this.localData.unshift(employee);
+            grid.markForCheck();
           } catch (e){
             this.error = `${this.errorMessage} <<${e}>>`;
           } finally {
@@ -82,7 +112,6 @@ export class EmployeeGridComponent implements OnInit {
           }
         }
       );
-    grid.markForCheck();
   }
 
   /**

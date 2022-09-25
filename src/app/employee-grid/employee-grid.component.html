@@ -1,21 +1,17 @@
 <h3>Employee Grid</h3>
 <h4>Use these examples as clipboard:</h4>
-<pre>{{"{\"EmployeeID\": \"1\", \"FirstName\": \"John\", \"LastName\": \"Doe\", \"Country\": \"USA\"}"}}</pre>
+<pre>{{"{\"FirstName\": \"John\", \"LastName\": \"Doe\", \"Country\": \"USA\", \"Age\": \"36\"}"}}</pre>
 <pre>{{"{\"FirstName\": \"anotherFirstName\"}"}}</pre>
 <pre>{{"{\"LastName\": \"anotherLastName\"}"}}</pre>
 
-<igx-grid #employeeGrid [data]="localData" [autoGenerate]="false" (columnInit)="onColumnInit($event)" width="960px" height="550px" [rowEditable]="true">
-  <igx-column field="EmployeeID" [sortable]="true" header="Employee ID" >
-    <ng-template igxCell let-value>
-      <div [contextMenu]="menu" [id]="value">{{ value }} </div>
-    </ng-template>
-  </igx-column>
-  <igx-column field="FirstName" [sortable]="true" header="FirstName" >
-  </igx-column>
-  <igx-column field="LastName" [sortable]="true" header="LastName"></igx-column>
-  <igx-column field="Country" [sortable]="true" header="Country"></igx-column>
-  <igx-column field="Age" [sortable]="true" header="Age"></igx-column>
-  <igx-column field="RegistererDate" [sortable]="true" header="RegistererDate"></igx-column>
+<igx-grid #employeeGrid [data]="localData" [autoGenerate]="false" width="960px" height="550px">
+  <ng-container  *ngFor="let column of columns">
+    <igx-column field="{{column.field}}" [sortable]="true" header="{{column.header}}" >
+      <ng-template igxCell let-cell="cell">
+        <div [contextMenu]="menu" [row]="cell.row">{{ column.value ?  column.value(cell.value) : cell.value }}</div>
+      </ng-template>
+    </igx-column>
+  </ng-container>
   <igx-paginator></igx-paginator>
 </igx-grid>
 
