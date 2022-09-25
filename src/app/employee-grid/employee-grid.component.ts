@@ -37,6 +37,7 @@ export class EmployeeGridComponent implements OnInit {
    * @param row
    */
   private updateCallback(row: string): void {
+    this.error = '';
     let employee: Partial<Employee>;
     navigator.clipboard
       .readText()
@@ -44,10 +45,10 @@ export class EmployeeGridComponent implements OnInit {
         (clipText) => {
           try {
             employee = JSON.parse(clipText);
+            this.localData = this.localData.map(element => element.EmployeeID === row ? { ...element, ...employee} : element);
           } catch (e){
             this.error = `Format Error: Please use the same format as the examples. \n <<${e}>>`;
           }
-          this.localData = this.localData.map(element => element.EmployeeID === row ? { ...element, ...employee} : element);
         },
       );
   }
@@ -57,6 +58,7 @@ export class EmployeeGridComponent implements OnInit {
    * @param grid
    */
   private async insertCallback(grid: IgxGridComponent): Promise<void> {
+    this.error = '';
     let employee: Employee;
     await navigator.clipboard
       .readText()
@@ -64,10 +66,10 @@ export class EmployeeGridComponent implements OnInit {
         (clipText) => {
           try {
             employee = JSON.parse(clipText);
+            this.localData.unshift(employee);
           } catch (e){
             this.error = `Format Error: Please use the same format as the examples. \n <<${e}>>`;
           }
-          this.localData.unshift(employee);
         }
       );
       grid.markForCheck();

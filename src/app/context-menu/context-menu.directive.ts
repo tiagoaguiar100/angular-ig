@@ -25,9 +25,10 @@ export class ContextMenuDirective {
    @HostListener('contextmenu', ['$event'])
    onInput(event: any) {
      event.preventDefault();
-     this.close();
 
     const config = new OverlayConfig();
+    config.hasBackdrop = true;
+    config.backdropClass = 'cdk-overlay-transparent-backdrop';
     config.positionStrategy = this.overlay.position().flexibleConnectedTo({x: event.clientX, y: event.clientY}).withPositions([{
       originX: 'start',
       originY: 'bottom',
@@ -40,12 +41,8 @@ export class ContextMenuDirective {
     this._overlayRef.attach(new TemplatePortal(this.contextMenu, this.viewContainerRef, {
       $implicit: this.id
     }));
-   }
 
-   public close(): void {
-    if(this._overlayRef) {
-      this._overlayRef.dispose();
-      this._overlayRef = null;
-    }
-  }
+    this._overlayRef.backdropClick().subscribe(() => this._overlayRef?.dispose());
+
+   }
 }
