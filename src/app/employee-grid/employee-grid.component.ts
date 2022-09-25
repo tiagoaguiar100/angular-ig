@@ -21,6 +21,9 @@ export class EmployeeGridComponent implements OnInit {
   public error = '';
   private errorMessage = 'Format Error: Please use the same format as the examples.';
 
+  /**
+   * Custom actions for context menus
+   */
   public actions: Action[] = [
     {
       label: 'Update row from clipboard',
@@ -32,6 +35,9 @@ export class EmployeeGridComponent implements OnInit {
     },
   ];
 
+  /**
+   * Columns grid
+   */
   public columns = [
     {
       field: 'FirstName',

@@ -1,6 +1,10 @@
 import { Component, Input } from '@angular/core';
 import { IgxGridComponent, IgxGridRow } from 'igniteui-angular';
 
+export interface Action {
+  label: string;
+  callback: (grid: IgxGridComponent, row: IgxGridRow) => void;
+}
 @Component({
   selector: 'app-context-menu',
   templateUrl: './context-menu.component.html',
@@ -8,7 +12,7 @@ import { IgxGridComponent, IgxGridRow } from 'igniteui-angular';
 })
 export class ContextMenuComponent {
   /**
-   * Input context representing igxGrid
+   * Input grid representing igxGrid
    */
   @Input() grid: IgxGridComponent;
   /**
@@ -22,10 +26,3 @@ export class ContextMenuComponent {
 
   constructor() { }
 }
-
-export interface Action {
-  label: string;
-  callback: callback;
-}
-
-type callback = (grid: IgxGridComponent, row: IgxGridRow) => void;

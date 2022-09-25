@@ -12,7 +12,7 @@ export class ContextMenuDirective {
   @Input() contextMenu: TemplateRef<any>;
   @Input() row: IgxGridRow;
 
-  public _overlayRef: OverlayRef | null;
+  private _overlayRef: OverlayRef | null;
 
   constructor(
     private overlay: Overlay,
@@ -48,12 +48,4 @@ export class ContextMenuDirective {
 
     this.contextMenuService.setContextMenu(this._overlayRef);
    }
-
-   /**
-    * Close context menu
-    */
-  public close(): void {
-    this._overlayRef?.dispose();
-    this._overlayRef = null;
-  }
 }
