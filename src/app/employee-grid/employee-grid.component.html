@@ -1,4 +1,9 @@
-<p>igx-grid component without auto generated columns below and local data.</p>
+<h3>Employee Grid</h3>
+<h4>Use these examples as clipboard:</h4>
+<pre>{{"{\"EmployeeID\": \"1\", \"FirstName\": \"John\", \"LastName\": \"Doe\", \"Country\": \"USA\"}"}}</pre>
+<pre>{{"{\"FirstName\": \"anotherFirstName\"}"}}</pre>
+<pre>{{"{\"LastName\": \"anotherLastName\"}"}}</pre>
+
 <igx-grid #employeeGrid [data]="localData" [autoGenerate]="false" (columnInit)="onColumnInit($event)" width="960px" height="550px" [rowEditable]="true">
   <igx-column field="EmployeeID" [sortable]="true" header="Employee ID" >
     <ng-template igxCell let-value>
@@ -14,6 +19,7 @@
   <igx-paginator></igx-paginator>
 </igx-grid>
 
+<label class="error" *ngIf="error">{{ error }}</label>
 
 <ng-template #menu let-id>
   <app-context-menu [grid]="employeeGrid" [row]="id" [actions]="actions"></app-context-menu>

@@ -6,7 +6,7 @@ import { IgxGridComponent } from 'igniteui-angular';
   templateUrl: './context-menu.component.html',
   styleUrls: ['./context-menu.component.scss']
 })
-export class ContextMenuComponent implements OnInit {
+export class ContextMenuComponent {
   /**
    * Input context representing igxGrid
    */
@@ -21,9 +21,6 @@ export class ContextMenuComponent implements OnInit {
   @Input() row: string;
 
   constructor() { }
-
-  ngOnInit(): void {}
-
 }
 
 export interface Action {
@@ -31,4 +28,4 @@ export interface Action {
   callback: callback;
 }
 
-type callback = (grid: any, row: any) => void;
+type callback = (grid: IgxGridComponent, row: any) => void;
